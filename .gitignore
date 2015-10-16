@@ -1,4 +1,7 @@
 #
+spatial.caffemodel
+temporal.caffemodel
+
 tmp/
 test/
 dense_flow/build/
