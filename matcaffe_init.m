@@ -16,7 +16,8 @@ if nargin < 3 || isempty(model_file)
 end
 
 
-if caffe('is_initialized') == 0
+%if caffe('is_initialized') == 0
+if 1
   if exist(model_file, 'file') == 0
     % NOTE: you'll have to get the pre-trained ILSVRC network
     error('You need a network model file');
@@ -26,22 +27,22 @@ if caffe('is_initialized') == 0
     error('You need the network prototxt definition');
   end
   if nargin > 3
-	caffe('set_device',gpu_id);
+    caffe.set_device(gpu_id); %caffe('set_device',gpu_id);
   end
-  caffe('init', model_def_file, model_file)
+  caffe.init(model_def_file, model_file); %caffe('init', model_def_file, model_file)
 end
 fprintf('Done with init\n');
 
 % set to use GPU or CPU
 if use_gpu
   fprintf('Using GPU Mode\n');
-  caffe('set_mode_gpu');
+  caffe.set_mode_gpu(); %caffe('set_mode_gpu');
 else
   fprintf('Using CPU Mode\n');
-  caffe('set_mode_cpu');
+  caffe.set_mode_cpu(); %caffe('set_mode_cpu');
 end
 fprintf('Done with set_mode\n');
 
 % put into test mode
-caffe('set_phase_test');
+caffe.set_phase_test(); %caffe('set_phase_test');
 fprintf('Done with set_phase_test\n');

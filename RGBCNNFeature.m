@@ -15,7 +15,8 @@ end
 
 
 % Initialize ConvNet
-if caffe('is_initialized') == 0
+%if caffe('is_initialized') == 0
+if 1
     if exist('use_gpu', 'var')
         matcaffe_init(use_gpu,model_def_file,model_file,gpu_id);
     else
@@ -42,7 +43,7 @@ for bb = 1 : num_batches
     tmp = video(:,:,:,range);
     images(:,:,:,1:size(tmp,4)) = tmp;
     
-    feature = caffe('forward',{images});
+    feature = caffe.forward({images}); %feature = caffe('forward',{images});
     feature = permute(feature{1},[2,1,3,4]);
     if isempty(FCNNFeature)
         FCNNFeature = zeros(size(feature,1), size(feature,2), size(feature,3), num_images, 'single');
