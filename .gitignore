@@ -1,5 +1,6 @@
 #
-
+tmp/
+test/
 dense_flow/build/
 improved_trajectory/build/
 

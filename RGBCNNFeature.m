@@ -15,8 +15,7 @@ end
 
 
 % Initialize ConvNet
-%if caffe('is_initialized') == 0
-if caffe.is_initialized() == 0
+if caffe('is_initialized') == 0
     if exist('use_gpu', 'var')
         matcaffe_init(use_gpu,model_def_file,model_file,gpu_id);
     else

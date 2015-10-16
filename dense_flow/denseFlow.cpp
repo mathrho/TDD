@@ -51,10 +51,9 @@ int main(int argc, char** argv)
 	string imgFile = cmd.get<string>("imgFile");
 	int bound = cmd.get<int>("bound");
 
-
 	VideoCapture capture(vidFile);
 	if(!capture.isOpened()) {
-		printf("Could not initialize capturing..\n");
+		printf("Could not initialize capturing..%s\n", vidFile.c_str());
 		return -1;
 	}
 
