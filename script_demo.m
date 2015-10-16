@@ -1,4 +1,5 @@
 % a demo code for TDD extraction
+addpath('/home/zhenyang/local/softs/caffe/matlab')
 
 vid_name = 'test.avi';
 
@@ -9,7 +10,8 @@ system(['./DenseTrackStab -f ',vid_name,' -o ',vid_name(1:end-4),'.bin']);
 % TVL1 flow extraction
 display('Extract TVL1 optical flow field...');
 mkdir test/
-system(['./dense_flow -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3']);
+%system(['./dense_flow -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3']);
+system(['./denseFlow_gpu -d 1 -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3']);
 
 % Import improved trajectories
 IDT = import_idt('test.bin',15);
@@ -24,7 +26,7 @@ display('Extract spatial TDD...');
 
 scale = 3;
 layer = 'conv5';
-gpu_id = 0;
+gpu_id = 1;
 
 model_def_file = [ 'models/rgb_',layer,'_scale',num2str(scale),'.prototxt'];
 model_file = 'spatial.caffemodel';
