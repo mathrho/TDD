@@ -32,6 +32,7 @@ model_def_file = [ 'models/rgb_',layer,'_scale',num2str(scale),'.prototxt'];
 model_file = 'spatial.caffemodel';
 
 feature_conv = RGBCNNFeature(vid_name, 1, sizes_vid(scale,1), sizes_vid(scale,2), model_def_file, model_file, gpu_id);
+FCNNFeature = feature_conv; save('FCNNFeature_mat.mat', 'FCNNFeature', '-v7.3');
 if max(info(1,:)) > size(feature_conv,4)
     ind =  info(1,:) <= size(feature_conv,4);
     info = info(:,ind);

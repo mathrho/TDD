@@ -1,6 +1,7 @@
 import sys
 import os.path
 import argparse
+import json
 
 import numpy as np
 import scipy.io
@@ -28,8 +29,15 @@ def main(options):
 
 if __name__ == "__main__":
 
-  parser = argparse.ArgumentParser()
-  
-  #
-  parser.add_argument('-v', '--videofile', dest='videofile', default='test.avi', help='video: filename')
+	parser = argparse.ArgumentParser()
+
+	#
+	parser.add_argument('-v', '--videofile', dest='videofile', default='test.avi', help='video: filename')
+
+
+	args = parser.parse_args()
+	options = vars(args) # convert to ordinary dict
+	print 'parsed option parameters:'
+	print json.dumps(options, indent = 2)
+	main(options)
 
