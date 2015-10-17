@@ -27,7 +27,7 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
         return
 
     numFrame = int(vidCap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
-    if length > 30*60:
+    if numFrame > 30*60:
         duration = 30 * 60
     else:
         duration = numFrame
