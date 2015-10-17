@@ -45,10 +45,11 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
             #    frame = np.tile(frame[:,:,np.newaxis], (1,1,3))
 
             # OpenCV BGR -> RGB ?? (caffe uses BGR)
-            # frame = frame[:,:,(2,1,0)]
+            frame = frame[:,:,(2,1,0)]
             # resize
             frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
             # mean subtraction
+            frame = frame[:,:,(2,1,0)]
             frame = frame - IMAGE_MEAN
             # get channel in correct dimension (H,W,C) -> (C,H,W)
             frame = np.transpose(frame, (2,0,1))
