@@ -41,8 +41,8 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
         flag, frame = vidCap.read()
         if flag:
             # The frame is ready and already captured
-            if len(frame.shape) == 2:
-                frame = np.tile(frame[:,:,np.newaxis], (1,1,3))
+            #if len(frame.shape) == 2:
+            #    frame = np.tile(frame[:,:,np.newaxis], (1,1,3))
 
             # OpenCV BGR -> RGB ?? (caffe uses BGR)
             # frame = frame[:,:,(2,1,0)]
