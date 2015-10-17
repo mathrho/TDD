@@ -15,7 +15,7 @@ def main(options):
 	import pdb; pdb.set_trace()
 	
 	# Spatial TDD
-	print 'Extract spatial TDD...'
+	print 'Extract spatial TDD'
 
 	scale = 3
 	layer = 'conv5'
