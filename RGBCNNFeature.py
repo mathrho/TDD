@@ -22,7 +22,7 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
 
     # Input video
     vidCap = cv2.VideoCapture(vid_name)
-    if(!vidCap.isOpened()):  # check if we succeeded
+    if not vidCap.isOpened():  # check if we succeeded
         print 'Could not initialize capturing..%s' % (vid_name, )
         return
 
@@ -77,4 +77,4 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
     FCNNFeature = np.transpose(FCNNFeature, (2,3,1,0))
 
     return FCNNFeature
-    
+
