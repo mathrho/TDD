@@ -17,7 +17,7 @@ def main(options):
 	# Spatial TDD
 	print 'Extract spatial TDD...'
 
-	scale = 3
+	scale = 2
 	layer = 'conv5'
 	gpu_id = 1
 
