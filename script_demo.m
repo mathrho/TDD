@@ -51,7 +51,7 @@ gpu_id = 0;
 model_def_file = [ 'models/flow_',layer,'_scale',num2str(scale),'.prototxt'];
 model_file = 'temporal.caffemodel';
 
-caffe.reset(); %caffe('reset');
+caffe.reset_all(); %caffe('reset');
 feature_conv = FlowCNNFeature('test/', 1, sizes_vid(scale,1), sizes_vid(scale,2),model_def_file, model_file, gpu_id);
 if max(info(1,:)) > size(feature_conv,4)
     ind =  info(1,:) <= size(feature_conv,4);
