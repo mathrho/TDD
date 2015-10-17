@@ -66,6 +66,7 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
 
     FCNNFeature = np.zeros((duration, d1, d2, d3), dtype=np.float32)
     for j in range(0, duration, batch_size):
+        import pdb; pdb.set_trace()
         batch_range = range(j, min(j+batch_size, duration))
         batch_images[0:len(batch_range),:,:,:] = video[batch_range,:,:,:]
 
