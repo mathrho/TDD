@@ -24,7 +24,7 @@ def main(options):
 	model_def_file = 'models/rgb_'+layer+'_scale'+str(scale)+'.prototxt'
 	model_file = 'spatial.caffemodel'
 
-	feature_conv = RGBCNNFeature(options['videofile'], 1, sizes_vid[scale,1], sizes_vid[scale,2], model_def_file, model_file, gpu_id)
+	feature_conv = RGBCNNFeature(options['videofile'], 1, sizes_vid[scale,0], sizes_vid[scale,1], model_def_file, model_file, gpu_id)
 
 	scipy.io.savemat(os.path.join('./', 'FCNNFeature_py.mat'), mdict = {'FCNNFeature': feature_conv})
 
