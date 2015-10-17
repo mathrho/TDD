@@ -1,4 +1,4 @@
-function  matcaffe_init(use_gpu, model_def_file, model_file, gpu_id)
+function net = matcaffe_init(use_gpu, model_def_file, model_file, gpu_id)
 % matcaffe_init(model_def_file, model_file, use_gpu)
 % Initilize matcaffe wrapper
 
@@ -15,6 +15,15 @@ if nargin < 3 || isempty(model_file)
   model_file = 'models/1_vgg_m_fine_tuning_rgb_iter_20000.caffemodel';
 end
 
+% set to use GPU or CPU
+if use_gpu
+  fprintf('Using GPU Mode\n');
+  caffe.set_mode_gpu(); %caffe('set_mode_gpu');
+else
+  fprintf('Using CPU Mode\n');
+  caffe.set_mode_cpu(); %caffe('set_mode_cpu');
+end
+fprintf('Done with set_mode\n');
 
 %if caffe('is_initialized') == 0
 if 1
@@ -29,20 +38,12 @@ if 1
   if nargin > 3
     caffe.set_device(gpu_id); %caffe('set_device',gpu_id);
   end
-  caffe.init(model_def_file, model_file); %caffe('init', model_def_file, model_file)
 end
+
+phase = 'test'; % run with phase test (so that dropout isn't applied)
+net = caffe.Net(model_def_file, model_file, phase); %caffe('init', model_def_file, model_file)
 fprintf('Done with init\n');
 
-% set to use GPU or CPU
-if use_gpu
-  fprintf('Using GPU Mode\n');
-  caffe.set_mode_gpu(); %caffe('set_mode_gpu');
-else
-  fprintf('Using CPU Mode\n');
-  caffe.set_mode_cpu(); %caffe('set_mode_cpu');
-end
-fprintf('Done with set_mode\n');
-
 % put into test mode
-caffe.set_phase_test(); %caffe('set_phase_test');
+%caffe.set_phase_test(); %caffe('set_phase_test');
 fprintf('Done with set_phase_test\n');
