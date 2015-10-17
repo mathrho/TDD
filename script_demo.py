@@ -6,6 +6,8 @@ import json
 import numpy as np
 import scipy.io
 
+from RGBCNNFeature import RGBCNNFeature
+
 sizes = np.array([[8,8], [11.4286,11.4286], [16,16], [22.8571,24], [32,34.2587]])
 sizes_vid = np.array([[480,640], [340,454], [240,320], [170,227], [120,160]])
 
