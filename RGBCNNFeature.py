@@ -74,7 +74,7 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
         FCNNFeature[batch_range,:,:,:] = feature[0:len(batch_range),:,:,:]
 
     # tranpose to matlab format (N,C,H,W) -> (H,W,C,N) not (W,H,C,N)
-    FCNNFeature = np.transpose(FCNNFeature, (2,3,1,0))
+    #FCNNFeature = np.transpose(FCNNFeature, (2,3,1,0))
 
     return FCNNFeature
 
