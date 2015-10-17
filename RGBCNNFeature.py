@@ -15,6 +15,7 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
     N, C, H, W = net.blobs[net.inputs[0]].data.shape
     N, d1, d2, d3 = net.blobs[net.outputs[0]].data.shape
 
+    import pdb; pdb.set_trace()
     if NUM_HEIGHT != H:
         raise Exception, 'HEIGHT is not euqual to pre-trained network config!'
     if NUM_WIDTH != W:
