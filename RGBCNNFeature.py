@@ -49,7 +49,7 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
             # frame = frame[:,:,(2,1,0)]
             # resize
             # frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
-            frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_CUBIC)
+            frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
             # mean subtraction
             frame = frame - IMAGE_MEAN
             # get channel in correct dimension (H,W,C) -> (C,H,W)
