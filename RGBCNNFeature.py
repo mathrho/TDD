@@ -34,7 +34,8 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
     #
     d = scipy.io.loadmat('VGG_mean.mat')
     IMAGE_MEAN = d['image_mean']
-    IMAGE_MEAN = imresize(IMAGE_MEAN, (NUM_HEIGHT, NUM_WIDTH), 'bicubic')
+    #IMAGE_MEAN = imresize(IMAGE_MEAN, (NUM_HEIGHT, NUM_WIDTH), 'bicubic')
+    IMAGE_MEAN = cv2.resize(IMAGE_MEAN, (NUM_HEIGHT, NUM_WIDTH), interpolation=cv2.INTER_CUBIC)
 
     video = np.zeros((duration, 3, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
     for i in range(0, duration):
@@ -47,7 +48,8 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
             # OpenCV BGR -> RGB ?? (caffe uses BGR)
             # frame = frame[:,:,(2,1,0)]
             # resize
-            frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
+            # frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
+            frame = cv2.resize(frame, (NUM_HEIGHT, NUM_WIDTH), interpolation=cv2.INTER_LINEAR)
             # mean subtraction
             frame = frame - IMAGE_MEAN
             # get channel in correct dimension (H,W,C) -> (C,H,W)
@@ -66,7 +68,6 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
 
     FCNNFeature = np.zeros((duration, d1, d2, d3), dtype=np.float32)
     for j in range(0, duration, batch_size):
-        import pdb; pdb.set_trace()
         batch_range = range(j, min(j+batch_size, duration))
         batch_images[0:len(batch_range),:,:,:] = video[batch_range,:,:,:]
 
