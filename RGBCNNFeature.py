@@ -34,7 +34,8 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
     #
     d = scipy.io.loadmat('VGG_mean.mat')
     IMAGE_MEAN = d['image_mean']
-    #IMAGE_MEAN = imresize(IMAGE_MEAN, (NUM_HEIGHT, NUM_WIDTH), 'bicubic')
+    # scipy.misc.imresize only works with uint8
+    # IMAGE_MEAN = imresize(IMAGE_MEAN, (NUM_HEIGHT, NUM_WIDTH), 'bicubic')
     IMAGE_MEAN = cv2.resize(IMAGE_MEAN, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_CUBIC)
 
     video = np.zeros((duration, 3, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
@@ -47,9 +48,9 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
 
             # OpenCV BGR -> RGB ?? (caffe uses BGR)
             # frame = frame[:,:,(2,1,0)]
-            # resize
-            # frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
-            frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
+            # resize: scipy.misc.imresize only works with uint8
+            frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
+            # frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
             # mean subtraction
             frame = frame - IMAGE_MEAN
             # get channel in correct dimension (H,W,C) -> (C,H,W)
