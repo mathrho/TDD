@@ -48,10 +48,9 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
 
             # OpenCV BGR -> RGB ?? (caffe uses BGR)
             # frame = frame[:,:,(2,1,0)]
-            # resize: scipy.misc.imresize only works with uint8
+            # resize scipy.misc.imresize only works with uint8
             # frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
             frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
-            import pdb; pdb.set_trace()
             # mean subtraction
             frame = frame - IMAGE_MEAN
             # get channel in correct dimension (H,W,C) -> (C,H,W)
