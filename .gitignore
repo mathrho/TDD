@@ -1,7 +1,9 @@
 #
 spatial.caffemodel
 temporal.caffemodel
-
+FCNNFeature_mat.mat
+FCNNFeature_py.mat
+*.pyc
 tmp/
 test/
 dense_flow/build/
