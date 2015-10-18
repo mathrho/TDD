@@ -10,8 +10,8 @@ end
 video = zeros(NUM_HEIGHT, NUM_WIDTH, 3, duration,'single');
 for i = 1 : duration
     tmp = read(vidObj,i);
-    %video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear');
-    video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear', 'Antialiasing', false);
+    video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear');
+    %video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear', 'Antialiasing', false);
 end
 
 
@@ -28,8 +28,8 @@ end
 % Computing convoltuional maps
 d = load('VGG_mean');
 IMAGE_MEAN = d.image_mean;
-%IMAGE_MEAN = imresize(IMAGE_MEAN,[NUM_HEIGHT,NUM_WIDTH]);
-IMAGE_MEAN = imresize(IMAGE_MEAN,[NUM_HEIGHT,NUM_WIDTH],'Antialiasing',false);
+IMAGE_MEAN = imresize(IMAGE_MEAN,[NUM_HEIGHT,NUM_WIDTH]);
+%IMAGE_MEAN = imresize(IMAGE_MEAN,[NUM_HEIGHT,NUM_WIDTH],'Antialiasing',false);
 video = video(:,:,[3,2,1],:);
 video = bsxfun(@minus,video,IMAGE_MEAN);
 video = permute(video,[2,1,3,4]);
@@ -41,7 +41,6 @@ FCNNFeature = [];
 
 images = zeros(NUM_WIDTH, NUM_HEIGHT, 3, batch_size, 'single');
 for bb = 1 : num_batches
-    keyboard
     range = 1 + batch_size*(bb-1): min(num_images,batch_size*bb);
     tmp = video(:,:,:,range);
     images(:,:,:,1:size(tmp,4)) = tmp;
