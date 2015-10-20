@@ -37,8 +37,8 @@ if __name__ == "__main__":
 
     filenames = []
     with open(args.files) as fp:
-    for line in fp:
-        filenames.append(line.strip())
+        for line in fp:
+            filenames.append(line.strip())
 
     Nf = len(filenames)
     for i in range(0, Nf):
