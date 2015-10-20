@@ -47,9 +47,9 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
         # resize scipy.misc.imresize only works with uint8
         flow_x = cv2.resize(flow_x, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
         flow_y = cv2.resize(flow_y, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
-        # mean subtraction
-        flow_x = flow_x - IMAGE_MEAN
-        flow_y = flow_y - IMAGE_MEAN
+        # mean subtraction, since IMAGE_MEAN size(NUM_HEIGHT, NUM_WIDTH, L*2)
+        # flow_x = flow_x - IMAGE_MEAN
+        # flow_y = flow_y - IMAGE_MEAN
         #
         video[i,0,:,:] = flow_x
         video[i,1,:,:] = flow_y
@@ -57,6 +57,10 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
     for i in range(0, L-1):
         tmp = concatenate((video[1:duration,i*2:(i+1)*2,:,:],video[-1,i*2:(i+1)*2,:,:]), axis=0)
         video[:,(i+1)*2:(i+2)*2,:,:] = tmp
+
+    # mean subtraction
+    IMAGE_MEAN = np.transpose(IMAGE_MEAN, (2,0,1))
+    video = video - np.tile(IMAGE_MEAN[np.newaxis,:,:,:], (duration,1,1,1))
 
     # Computing convoltuional maps
     # Keep in mind that width is the fastest dimension and channels are BGR (in Matlab)
