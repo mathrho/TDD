@@ -55,7 +55,7 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
         video[i,1,:,:] = flow_y
 
     for i in range(0, L-2):
-        tmp = np.concatenate((video[1:duration,i*2:(i+1)*2,:,:],video[duration-1,i*2:(i+1)*2,:,:]), axis=0)
+        tmp = np.concatenate((video[1:duration-1,i*2:(i+1)*2,:,:],video[(-1,-1),i*2:(i+1)*2,:,:]), axis=0)
         video[:,(i+1)*2:(i+2)*2,:,:] = tmp
 
     # mean subtraction
