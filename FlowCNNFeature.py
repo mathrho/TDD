@@ -1,14 +1,18 @@
 import sys
 import os
+import glob
 
 import numpy as np
-from scipy.misc import imresize
+from scipy.misc import imread, imresize
 import scipy.io
 import cv2
 
 from caffeCNN import caffe_init, caffe_predict
 
-def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, model_file, gpu_id):
+def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, model_file, gpu_id):
+
+    # 2L channels
+    L = 10
 
     # Initialize caffe net
     net = caffe_init(use_gpu,model_def_file,model_file,gpu_id)
@@ -21,30 +25,52 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
         raise Exception, 'WIDTH is not euqual to pre-trained network config'
 
     # Input video
-    vidCap = cv2.VideoCapture(vid_name)
-    if not vidCap.isOpened():  # check if we succeeded
-        print 'Could not initialize capturing..%s' % (vid_name, )
-        return
-
-    numFrame = int(vidCap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
-    if numFrame > 30*60:
+    filelist = glob.glob(vid_name+'*_x*.jpg')
+    if len(filelist) > 30*60:
         duration = 30 * 60
     else:
-        duration = numFrame
+        duration = len(filelist)
 
     # get iamge mean map
-    d = scipy.io.loadmat('VGG_mean.mat')
+    d = scipy.io.loadmat('flow_mean.mat')
     IMAGE_MEAN = d['image_mean']
     # scipy.misc.imresize only works with uint8
     # IMAGE_MEAN = imresize(IMAGE_MEAN, (NUM_HEIGHT, NUM_WIDTH), 'bicubic')
     IMAGE_MEAN = cv2.resize(IMAGE_MEAN, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_CUBIC)
+
+    video = np.zeros((duration, L*2, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
+    for i in range(0, duration):
+        flow_x = imread( '%s_%04d.jpg' % (vid_name+'flow_x', i) )
+        flow_y = imread( '%s_%04d.jpg' % (vid_name+'flow_y',,i) )
+
+        # RGB -> BGR, not need here
+        # resize scipy.misc.imresize only works with uint8
+        flow_x = cv2.resize(flow_x, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
+        flow_y = cv2.resize(flow_y, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
+        # mean subtraction
+        flow_x = flow_x - IMAGE_MEAN
+        flow_y = flow_y - IMAGE_MEAN
+        #
+        video(i,0,:,:) = flow_x
+        video(i,1,:,:) = flow_y
+
+    for i in range(0, L-1)
+
+
+    for i = 1:L-1
+        tmp = cat(4, video(:,:,(i-1)*2+1:i*2,2:end),video(:,:,(i-1)*2+1:i*2,end));
+        video(:,:,i*2+1:i*2+2,:)  = tmp;
+    end
+
+
+
 
     video = np.zeros((duration, 3, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
     for i in range(0, duration):
         flag, frame = vidCap.read()
         if flag:
             # The frame is ready and already captured
-            # if len(frame.shape) == 2:
+            #if len(frame.shape) == 2:
             #    frame = np.tile(frame[:,:,np.newaxis], (1,1,3))
 
             # OpenCV BGR -> RGB ?? (caffe uses BGR)

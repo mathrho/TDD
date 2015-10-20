@@ -14,6 +14,21 @@ sizes_vid = np.array([[480,640], [340,454], [240,320], [170,227], [120,160]])
 def main(options):
 	#import pdb; pdb.set_trace()
 
+	# iDT extraction
+	print 'Extract improved trajectories...'
+	#system(['./DenseTrackStab -f ',vid_name,' -o ',vid_name(1:end-4),'.bin']);
+
+	# TVL1 flow extraction
+	print 'Extract TVL1 optical flow field...'
+	#mkdir test/
+	#system(['./denseFlow -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3']);
+	#system(['./denseFlow_gpu -d 1 -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3']);
+
+	# Import improved trajectories
+	#IDT = import_idt('test.bin',15);
+	#info = IDT.info;
+	#tra = IDT.tra;
+
 	# Spatial TDD
 	print 'Extract spatial TDD...'
 
