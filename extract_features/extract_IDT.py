@@ -24,7 +24,7 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--dataset', dest='dataset', help='Specify dataset to process.', type=str, required=False)
     args = parser.parse_args()
 
-    if args.objclass is None:
+    if args.dataset is None:
         print 'Not specify dataset, using UCF101 by default...'
         args.dataset = '/home/zhenyang/Workspace/data/UCF101/list_UCF101.txt'
 
