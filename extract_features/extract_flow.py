@@ -14,7 +14,7 @@ def getVideoFlowFeatures(inputfile,outputfile):
     print '(1/1) getVideoFlowFeatures: ' + inputfile
     #'./denseFlow -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3'
     #'./denseFlow_gpu -d 1 -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3'
-    command = './denseFlow_gpu -f %s -x %s/flow_x -y %s/flow_y -b 20 -t 1 -d 2' % (inputfile, outputfile, outputfile, )
+    command = './denseFlow -f %s -x %s/flow_x -y %s/flow_y -i %s/image -b 20 -t 1 -d 2' % (inputfile,outputfile,outputfile,outputfile, )
     proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, universal_newlines=True)
     while proc.poll() is None:
         line = proc.stdout.readline()

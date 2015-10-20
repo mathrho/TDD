@@ -13,7 +13,7 @@ import json
 def getVideoIDTFeatures(inputfile,outputfile):
     print '(1/1) getVideoIDTFeatures: ' + inputfile
     #'./DenseTrackStab -f vid_name -o vid_name(1:end-4).bin'
-    command = './DenseTrackStab -f %s -o %s' % (inputfile, outputfile, )
+    command = './DenseTrackStab -f %s -o %s' % (inputfile,outputfile, )
     proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, universal_newlines=True)
     while proc.poll() is None:
         line = proc.stdout.readline()
