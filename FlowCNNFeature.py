@@ -56,7 +56,7 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
 
     for i in range(0, L-1):
         tmp = concatenate((video[1:duration,i*2:(i+1)*2,:,:],video[-1,i*2:(i+1)*2,:,:]), axis=0)
-        video[;,(i+1)*2:(i+2)*2,:,:] = tmp
+        video[:,(i+1)*2:(i+2)*2,:,:] = tmp
 
     # Computing convoltuional maps
     # Keep in mind that width is the fastest dimension and channels are BGR (in Matlab)
