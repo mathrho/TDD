@@ -32,7 +32,7 @@ model_def_file = [ 'models/rgb_',layer,'_scale',num2str(scale),'.prototxt'];
 model_file = 'spatial.caffemodel';
 
 feature_conv = RGBCNNFeature(vid_name, 1, sizes_vid(scale,1), sizes_vid(scale,2), model_def_file, model_file, gpu_id);
-FCNNFeature = feature_conv; save('FCNNFeature_mat.mat', 'FCNNFeature', '-v7.3');
+FCNNFeature = feature_conv; save('rgbCNNFeature_mat.mat', 'FCNNFeature', '-v7.3');
 if max(info(1,:)) > size(feature_conv,4)
     ind =  info(1,:) <= size(feature_conv,4);
     info = info(:,ind);
@@ -47,13 +47,15 @@ tdd_feature_spatial_2 = TDD(info, tra, feature_conv_normalize_2, sizes(scale,1),
 display('Extract temporal TDD...');
 scale = 3;
 layer = 'conv5';
-gpu_id = 0;
+gpu_id = 1;
 
 model_def_file = [ 'models/flow_',layer,'_scale',num2str(scale),'.prototxt'];
 model_file = 'temporal.caffemodel';
 
 caffe.reset_all(); %caffe('reset');
+
 feature_conv = FlowCNNFeature('test/', 1, sizes_vid(scale,1), sizes_vid(scale,2),model_def_file, model_file, gpu_id);
+FCNNFeature = feature_conv; save('flowCNNFeature_mat.mat', 'FCNNFeature', '-v7.3');
 if max(info(1,:)) > size(feature_conv,4)
     ind =  info(1,:) <= size(feature_conv,4);
     info = info(:,ind);

@@ -55,46 +55,16 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
         video(i,1,:,:) = flow_y
 
     for i in range(0, L-1)
-
-
-    for i = 1:L-1
-        tmp = cat(4, video(:,:,(i-1)*2+1:i*2,2:end),video(:,:,(i-1)*2+1:i*2,end));
-        video(:,:,i*2+1:i*2+2,:)  = tmp;
-    end
-
-
-
-
-    video = np.zeros((duration, 3, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
-    for i in range(0, duration):
-        flag, frame = vidCap.read()
-        if flag:
-            # The frame is ready and already captured
-            #if len(frame.shape) == 2:
-            #    frame = np.tile(frame[:,:,np.newaxis], (1,1,3))
-
-            # OpenCV BGR -> RGB ?? (caffe uses BGR)
-            # frame = frame[:,:,(2,1,0)]
-            # resize scipy.misc.imresize only works with uint8
-            # frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
-            frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
-            # mean subtraction
-            frame = frame - IMAGE_MEAN
-            # get channel in correct dimension (H,W,C) -> (C,H,W)
-            frame = np.transpose(frame, (2,0,1))
-            #
-            video[i,:,:,:] = frame
-        else:
-            # The next frame is not ready, so we try to read it again
-            print 'frame is not ready'
+        tmp = concatenate((video[1:duration,i*2:(i+1)*2,:,:],video[-1,i*2:(i+1)*2,:,:]), axis=0)
+        video[;,(i+1)*2:(i+2)*2,:,:] = tmp
 
     # Computing convoltuional maps
     # Keep in mind that width is the fastest dimension and channels are BGR (in Matlab)
     # however, Matlab (W,H,C,N) -> Python (N,C,H,W)
     batch_size = N # batch_size = 40
-    batch_images = np.zeros((batch_size, 3, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
+    batch_images = np.zeros((batch_size, L*2, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
 
-    FCNNFeature = np.zeros((duration, d1, d2, d3), dtype=np.float32)
+    FlowFeature = np.zeros((duration, d1, d2, d3), dtype=np.float32)
     for j in range(0, duration, batch_size):
         batch_range = range(j, min(j+batch_size, duration))
         batch_images[0:len(batch_range),:,:,:] = video[batch_range,:,:,:]

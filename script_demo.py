@@ -41,7 +41,24 @@ def main(options):
 
 	feature_conv = RGBCNNFeature(options['videofile'], 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
 
-	scipy.io.savemat(os.path.join('./', 'FCNNFeature_py.mat'), mdict = {'FCNNFeature': feature_conv})
+	scipy.io.savemat(os.path.join('./', 'rgbCNNFeature_py.mat'), mdict = {'FCNNFeature': feature_conv})
+
+
+	# Temporal TDD
+	caffe.reset_all()
+
+	print 'Extract temporal TDD...'
+
+	scale = 3
+	layer = 'conv5'
+	gpu_id = 1
+
+	model_def_file = 'models/flow_'+layer+'_scale'+str(scale)+'.prototxt'
+	model_file = 'temporal.caffemodel'
+
+	feature_conv = FlowCNNFeature('test/', 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
+
+	scipy.io.savemat(os.path.join('./', 'flowCNNFeature_py.mat'), mdict = {'FCNNFeature': feature_conv})
 
 
 if __name__ == "__main__":
