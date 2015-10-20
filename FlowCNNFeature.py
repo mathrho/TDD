@@ -41,7 +41,7 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
     video = np.zeros((duration, L*2, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
     for i in range(0, duration):
         flow_x = imread( '%s_%04d.jpg' % (vid_name+'flow_x', i) )
-        flow_y = imread( '%s_%04d.jpg' % (vid_name+'flow_y',,i) )
+        flow_y = imread( '%s_%04d.jpg' % (vid_name+'flow_y', i) )
 
         # RGB -> BGR, not need here
         # resize scipy.misc.imresize only works with uint8
