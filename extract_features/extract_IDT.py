@@ -31,7 +31,7 @@ if __name__ == "__main__":
     print '***************************************'
     print '******** EXTRACT FEATURES **********'
     print '***************************************'
-    print 'Dataset: %s' (args.dataset, )
+    print 'Dataset: %s' % (args.dataset, )
 
     base_dir = os.path.dirname(args.dataset)
 
