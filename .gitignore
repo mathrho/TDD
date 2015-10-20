@@ -1,8 +1,8 @@
 #
 spatial.caffemodel
 temporal.caffemodel
-FCNNFeature_mat.mat
-FCNNFeature_py.mat
+*.mat
+*.mat
 *.pyc
 tmp/
 test/
