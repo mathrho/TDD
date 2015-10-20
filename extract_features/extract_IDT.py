@@ -44,7 +44,7 @@ if __name__ == "__main__":
     for i in range(0, Nf):
 
         filename = filenames[i]
-        print 'Processing (%d/%d): %s' % (i,Nf,filename, )
+        print 'Processing (%d/%d): %s' % (i+1,Nf,filename, )
 
         inputfile = os.path.join(base_dir, 'videos', filename)
         outputfile = os.path.join(base_dir, 'features', 'idt', filename+'.bin')
