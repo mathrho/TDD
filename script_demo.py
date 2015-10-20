@@ -45,7 +45,7 @@ def main(options):
 
 
 	# Temporal TDD
-	caffe.reset_all()
+	# caffe.reset_all()
 
 	print 'Extract temporal TDD...'
 
