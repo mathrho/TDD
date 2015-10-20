@@ -68,7 +68,7 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
     batch_size = N # batch_size = 40
     batch_images = np.zeros((batch_size, L*2, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
 
-    FlowFeature = np.zeros((duration, d1, d2, d3), dtype=np.float32)
+    FCNNFeature = np.zeros((duration, d1, d2, d3), dtype=np.float32)
     for j in range(0, duration, batch_size):
         batch_range = range(j, min(j+batch_size, duration))
         batch_images[0:len(batch_range),:,:,:] = video[batch_range,:,:,:]
