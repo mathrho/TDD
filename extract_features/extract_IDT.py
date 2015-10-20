@@ -36,7 +36,7 @@ if __name__ == "__main__":
     base_dir = os.path.dirname(args.dataset)
 
     filenames = []
-    with open(args.files) as fp:
+    with open(args.dataset) as fp:
         for line in fp:
             filenames.append(line.strip())
 
