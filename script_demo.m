@@ -40,10 +40,11 @@ if max(info(1,:)) > size(feature_conv,4)
 end
 
 [feature_conv_normalize_1, feature_conv_normalize_2] = FeatureMapNormalization(feature_conv);
-save('rgbCNNFeature_mat.mat', 'feature_conv_normalize_1', 'feature_conv_normalize_2', '-v7.3');
 
 tdd_feature_spatial_1 = TDD(info, tra, feature_conv_normalize_1, sizes(scale,1), sizes(scale,2), 1);
 tdd_feature_spatial_2 = TDD(info, tra, feature_conv_normalize_2, sizes(scale,1), sizes(scale,2), 1);
+
+save('rgbCNNFeature_mat.mat', 'tdd_feature_spatial_1', 'tdd_feature_spatial_2', '-v7.3');
 
 % Temporal TDD
 display('Extract temporal TDD...');
@@ -65,8 +66,9 @@ if max(info(1,:)) > size(feature_conv,4)
 end
 
 [feature_conv_normalize_1, feature_conv_normalize_2] = FeatureMapNormalization(feature_conv);
-save('flowCNNFeature_mat.mat', 'feature_conv_normalize_1', 'feature_conv_normalize_2', '-v7.3');
 
 tdd_feature_temporal_1 = TDD(info, tra, feature_conv_normalize_1, sizes(scale,1), sizes(scale,2), 1);
 tdd_feature_temporal_2 = TDD(info, tra, feature_conv_normalize_2, sizes(scale,1), sizes(scale,2), 1);
+
+save('flowCNNFeature_mat.mat', 'tdd_feature_temporal_1', 'tdd_feature_temporal_2', '-v7.3');
 
