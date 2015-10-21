@@ -38,8 +38,8 @@ def TDD(inf,traj,cnn_feature,scale_x,scale_y,num_cell):
 
 		tmp = cnn_feature[np.ravel_multi_index(cur,size_mat, order='F'), :]
 		tmp = np.transpose(tmp)
-		tmp = np.reshape(tmp, (NUM_DIM,num_fea,-1))
-		feature = np.reshape(np.sum(tmp,axis=1), (-1,NUM_DES))
+		tmp = np.reshape(tmp, (NUM_DIM,num_fea,-1), order='F')
+		feature = np.reshape(np.sum(tmp,axis=1), (-1,NUM_DES), order='F')
 
 	else:
 
