@@ -30,10 +30,10 @@ def TDD(inf,tra,cnn_feature,scale_x,scale_y,num_cell):
 		size_mat = cnn_feature.shape[0:3]
 		cnn_feature = np.reshape(cnn_feature, (-1,NUM_DIM))
 
-		cur_x = np.ravel(pos[range(0,TRA_LEN*2,2),:], order='F') - 1
+		cur_x = np.reshape(pos[range(0,TRA_LEN*2,2),:], order='F') - 1
 		cur_y = np.ravel(pos[range(1,TRA_LEN*2,2),:], order='F') - 1
 		cur_t= np.ravel(np.subtract(inf[0,:], np.transpose(offset[np.newaxis,:])), order='F') - 1
-		cur = np.concatenate((cur_y,cur_x,cur_t), axis=0)
+		cur = np.array([cur_y, cur_x, cur_t])
 
 		import pdb; pdb.set_trace()
 		tmp = cnn_feature[np.ravel_multi_index(cur,size_mat,order='F'), :]
