@@ -42,7 +42,7 @@ def main(options):
 	model_file = 'spatial.caffemodel'
 
 	feature_conv = RGBCNNFeature(options['videofile'], 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
-	[feature_conv_normalize_1, feature_conv_normalize_2] = FeatureMapNormalization(feature_conv);
+	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv);
 
 	scipy.io.savemat(os.path.join('./', 'rgbCNNFeature_py.mat'), mdict = {'feature_conv_normalize_1': feature_conv_normalize_1, 'feature_conv_normalize_2': feature_conv_normalize_2})
 
@@ -60,7 +60,7 @@ def main(options):
 	model_file = 'temporal.caffemodel'
 
 	feature_conv = FlowCNNFeature('test/', 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
-	[feature_conv_normalize_1, feature_conv_normalize_2] = FeatureMapNormalization(feature_conv);
+	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv);
 
 	scipy.io.savemat(os.path.join('./', 'flowCNNFeature_py.mat'), mdict = {'feature_conv_normalize_1': feature_conv_normalize_1, 'feature_conv_normalize_2': feature_conv_normalize_2})
 
