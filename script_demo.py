@@ -47,8 +47,8 @@ def main(options):
 	
 	if np.amax(info[0,:]) > feature_conv.shape[3]:
 		ind = np.where(info[0,:] <= feature_conv.shape[3])[0]
-    	info = info[:,ind]
-    	traj = traj[:,ind]
+		info = info[:,ind]
+		traj = traj[:,ind]
 
 	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv);
 
@@ -74,8 +74,8 @@ def main(options):
 
 	if np.amax(info[0,:]) > feature_conv.shape[3]:
 		ind = np.where(info[0,:] <= feature_conv.shape[3])[0]
-    	info = info[:,ind]
-    	traj = traj[:,ind]
+		info = info[:,ind]
+		traj = traj[:,ind]
 
 	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv);
 
