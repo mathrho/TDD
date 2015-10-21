@@ -46,7 +46,7 @@ def main(options):
 	feature_conv = RGBCNNFeature(options['videofile'], 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
 	
 	if np.amax(info[0,:]) > feature_conv.shape[3]:
-    	ind =  np.where(info[0,:] <= feature_conv.shape[3])[0]
+		ind = np.where(info[0,:] <= feature_conv.shape[3])[0]
     	info = info[:,ind]
     	traj = traj[:,ind]
 
@@ -71,9 +71,9 @@ def main(options):
 	model_file = 'temporal.caffemodel'
 
 	feature_conv = FlowCNNFeature('test/', 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
-	
+
 	if np.amax(info[0,:]) > feature_conv.shape[3]:
-    	ind =  np.where(info[0,:] <= feature_conv.shape[3])[0]
+		ind = np.where(info[0,:] <= feature_conv.shape[3])[0]
     	info = info[:,ind]
     	traj = traj[:,ind]
 
