@@ -60,7 +60,7 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
 
     # mean subtraction
     IMAGE_MEAN = np.transpose(IMAGE_MEAN, (2,0,1))
-    video = np.subtract(video, IMAGE_MEAN) # np.tile(IMAGE_MEAN[np.newaxis,:,:,:], (duration,1,1,1))
+    video = np.subtract(video, IMAGE_MEAN[np.newaxis,:,:,:]) # np.tile(IMAGE_MEAN[np.newaxis,:,:,:], (duration,1,1,1))
 
     # Computing convoltuional maps
     # Keep in mind that width is the fastest dimension and channels are BGR (in Matlab)
