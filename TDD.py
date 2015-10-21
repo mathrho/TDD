@@ -26,7 +26,7 @@ def TDD(inf,tra,cnn_feature,scale_x,scale_y,num_cell):
 		pos = np.reshape(pos, (TRA_LEN*2,-1))
 
 		cnn_feature = np.transpose(cnn_feature, (0,1,3,2))
-		offset = range(TRA_LEN-1,-1,-1)
+		offset = np.arange(TRA_LEN-1,-1,-1)
 		size_mat = [cnn_feature.shape[0],cnn_feature.shape[1],cnn_feature.shape[2]]
 		cnn_feature = np.reshape(cnn_feature, (-1,NUM_DIM))
 
