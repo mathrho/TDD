@@ -18,9 +18,9 @@ ALL_DIM=INFO_DIM+TRAJ_DIM+TRAJ_SHAPE_DIM+HOG_DIM+HOF_DIM+MBHX_DIM+MBHY_DIM
 class IDTFeature(object):
     def __init__(self, data):
 
-        data = np.reshape(data, (ALL_DIM, -1), order='F')
-
         if data.size:
+        
+            data = np.reshape(data, (ALL_DIM, -1), order='F')
 
             traj_start = 10
             traj_shape_start = traj_start + TRAJ_SHAPE_DIM
