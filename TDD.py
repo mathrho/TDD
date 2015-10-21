@@ -10,7 +10,7 @@ def TDD(inf,traj,cnn_feature,scale_x,scale_y,num_cell):
 		inf = inf[:,ind]
 		traj = traj[:,ind]
 
-	import pdb; pdb.set_trace()
+	#import pdb; pdb.set_trace()
 	if inf is not None:
 		NUM_DIM = cnn_feature.shape[2]
 		NUM_DES = inf.shape[1]
@@ -29,7 +29,7 @@ def TDD(inf,traj,cnn_feature,scale_x,scale_y,num_cell):
 		cnn_feature = np.transpose(cnn_feature, (0,1,3,2))
 		offset = np.arange(TRAJ_LEN-1,-1,-1)
 		size_mat = cnn_feature.shape[0:3]
-		cnn_feature = np.reshape(cnn_feature, (-1,NUM_DIM))
+		cnn_feature = np.reshape(cnn_feature, (-1,NUM_DIM), order='F')
 
 		cur_x = np.ravel(pos[range(0,TRAJ_LEN*2,2),:], order='F') - 1
 		cur_y = np.ravel(pos[range(1,TRAJ_LEN*2,2),:], order='F') - 1
