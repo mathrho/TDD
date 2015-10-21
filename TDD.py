@@ -10,6 +10,7 @@ def TDD(inf,traj,cnn_feature,scale_x,scale_y,num_cell):
 		inf = inf[:,ind]
 		traj = traj[:,ind]
 
+	import pdb; pdb.set_trace()
 	if inf is not None:
 		NUM_DIM = cnn_feature.shape[2]
 		NUM_DES = inf.shape[1]
@@ -35,7 +36,6 @@ def TDD(inf,traj,cnn_feature,scale_x,scale_y,num_cell):
 		cur_t= np.ravel(np.subtract(inf[0,:], np.transpose(offset[np.newaxis,:])), order='F') - 1
 		cur = np.array([cur_y, cur_x, cur_t], np.int64)
 
-		import pdb; pdb.set_trace()
 		tmp = cnn_feature[np.ravel_multi_index(cur,size_mat,order='F'), :]
 		tmp = np.transpose(tmp)
 		tmp = np.reshape(tmp, (NUM_DIM,num_fea,-1))

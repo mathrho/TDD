@@ -6,7 +6,7 @@ if ~isempty(inf)
 	tra = tra(:,ind);
 end
 
-
+keyboard
 if ~isempty(inf)
 	NUM_DIM = size(cnn_feature,3);
 	NUM_DES = size(inf,2);
@@ -29,7 +29,6 @@ if ~isempty(inf)
 	cur_y = pos(2:2:end,:);
 	cur_t = bsxfun(@minus,inf(1,:),offset');
 
-	keyboard
 	tmp = cnn_feature(sub2ind(size_mat,cur_y,cur_x,cur_t),:)';
 	tmp = reshape(tmp,NUM_DIM,num_fea,[]);
 	feature = reshape(sum(tmp,2),[],NUM_DES);
