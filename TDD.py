@@ -34,7 +34,7 @@ def TDD(inf,tra,cnn_feature,scale_x,scale_y,num_cell):
 		cur_y = pos[range(1,TRA_LEN*2,2),:]
 		cur_t= np.subtract(inf[0,:], np.transpose(offset[np.newaxis,:]))
 
-		tmp = cnn_feature[np.ravel_multi_index([cur_y-1,cur_x-1,cur_t-1],size_mat), :]
+		tmp = cnn_feature[np.ravel_multi_index([cur_y-1,cur_x-1,cur_t-1],size_mat,order='F'), :]
 		tmp = np.transpose(tmp)
 		tmp = np.reshape(tmp, (NUM_DIM,num_fea,-1))
 		feature = np.reshape(np.sum(tmp,axis=1), (-1,NUM_DES))
