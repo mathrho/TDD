@@ -29,6 +29,7 @@ if ~isempty(inf)
 	cur_y = pos(2:2:end,:);
 	cur_t = bsxfun(@minus,inf(1,:),offset');
 
+	keyboard
 	tmp = cnn_feature(sub2ind(size_mat,cur_y,cur_x,cur_t),:)';
 	tmp = reshape(tmp,NUM_DIM,num_fea,[]);
 	feature = reshape(sum(tmp,2),[],NUM_DES);
