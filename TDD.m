@@ -6,7 +6,7 @@ if ~isempty(inf)
 	tra = tra(:,ind);
 end
 
-keyboard
+
 if ~isempty(inf)
 	NUM_DIM = size(cnn_feature,3);
 	NUM_DES = size(inf,2);
