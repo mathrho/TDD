@@ -53,7 +53,7 @@ def main(options):
 	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv);
 
 	tdd_feature_spatial_1 = TDD(info, traj, feature_conv_normalize_1, sizes[scale-1,0], sizes[scale-1,1], 1)
-	tdd_feature_spatial_2 = TDD(info, traj, feature_conv_normalize_2, sizes[scale-1,0], sizes[scale-1,2], 1)
+	tdd_feature_spatial_2 = TDD(info, traj, feature_conv_normalize_2, sizes[scale-1,0], sizes[scale-1,1], 1)
 
 	scipy.io.savemat(os.path.join('./', 'rgbCNNFeature_py.mat'), mdict = {'tdd_feature_spatial_1': tdd_feature_spatial_1, 'tdd_feature_spatial_2': tdd_feature_spatial_2})
 
@@ -80,7 +80,7 @@ def main(options):
 	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv);
 
 	tdd_feature_temporal_1 = TDD(info, traj, feature_conv_normalize_1, sizes[scale-1,0], sizes[scale-1,1], 1)
-	tdd_feature_temporal_2 = TDD(info, traj, feature_conv_normalize_2, sizes[scale-1,0], sizes[scale-1,2], 1)
+	tdd_feature_temporal_2 = TDD(info, traj, feature_conv_normalize_2, sizes[scale-1,0], sizes[scale-1,1], 1)
 
 	scipy.io.savemat(os.path.join('./', 'flowCNNFeature_py.mat'), mdict = {'tdd_feature_temporal_1': tdd_feature_temporal_1, 'tdd_feature_temporal_2': tdd_feature_temporal_2})
 
