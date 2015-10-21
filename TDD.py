@@ -24,7 +24,7 @@ def TDD(inf,traj,cnn_feature,scale_x,scale_y,num_cell):
 		pos = np.floor(np.abs(pos) + 0.5) * np.sign(pos) 
 		pos = np.fmax(pos, [[1],[1]])
 		pos = np.fmin(pos, [[cnn_feature.shape[1]],[cnn_feature.shape[0]]])
-		pos = np.reshape(pos, (TRAJ_LEN*2,-1))
+		pos = np.reshape(pos, (TRAJ_LEN*2,-1), order='F')
 
 		cnn_feature = np.transpose(cnn_feature, (0,1,3,2))
 		offset = np.arange(TRAJ_LEN-1,-1,-1)
@@ -36,7 +36,7 @@ def TDD(inf,traj,cnn_feature,scale_x,scale_y,num_cell):
 		cur_t= np.ravel(np.subtract(inf[0,:], np.transpose(offset[np.newaxis,:])), order='F') - 1
 		cur = np.array([cur_y, cur_x, cur_t], np.int64)
 
-		tmp = cnn_feature[np.ravel_multi_index(cur,size_mat,order='F'), :]
+		tmp = cnn_feature[np.ravel_multi_index(cur,size_mat, order='F'), :]
 		tmp = np.transpose(tmp)
 		tmp = np.reshape(tmp, (NUM_DIM,num_fea,-1))
 		feature = np.reshape(np.sum(tmp,axis=1), (-1,NUM_DES))
