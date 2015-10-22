@@ -45,7 +45,7 @@ if __name__ == "__main__":
     Nf = len(filenames)
     startvid = 0
     toid = Nf
-    if args.startvid is not None && args.tovid is not None:
+    if args.startvid is not None and args.tovid is not None:
         startvid = max([args.startvid-1, startvid])
         toid = min([args.tovid, toid])
 
