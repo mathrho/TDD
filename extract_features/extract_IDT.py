@@ -43,9 +43,11 @@ if __name__ == "__main__":
             filenames.append(line.strip())
 
     Nf = len(filenames)
+    startvid = 0
+    toid = Nf
     if args.startvid is not None && args.tovid is not None:
-        startvid = max([args.startvid-1, 0])
-        toid = min([args.tovid, Nf])
+        startvid = max([args.startvid-1, startvid])
+        toid = min([args.tovid, toid])
 
     for i in range(startvid, toid):
 
