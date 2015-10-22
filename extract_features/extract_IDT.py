@@ -22,6 +22,8 @@ def getVideoIDTFeatures(inputfile,outputfile):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='FeatureExtractior')    
     parser.add_argument('-d', '--dataset', dest='dataset', help='Specify dataset to process.', type=str, required=False)
+    parser.add_argument('-s', '--startvid', dest='startvid', help='Specify video id start to process.', type=int, required=False)
+    parser.add_argument('-t', '--tovid', dest='tovid', help='Specify video id until to process.', type=int, required=False)
     args = parser.parse_args()
 
     if args.dataset is None:
@@ -41,7 +43,11 @@ if __name__ == "__main__":
             filenames.append(line.strip())
 
     Nf = len(filenames)
-    for i in range(0, Nf):
+    if args.startvid is not None && args.tovid is not None:
+        startvid = max([args.startvid-1, 0])
+        toid = min([args.tovid, Nf])
+
+    for i in range(startvid, toid):
 
         filename = filenames[i]
         print 'Processing (%d/%d): %s' % (i+1,Nf,filename, )
