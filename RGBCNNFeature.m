@@ -3,9 +3,9 @@ function FCNNFeature = RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, m
 % Input video
 vidObj = VideoReader(vid_name);
 if vidObj.NumberOfFrame > 30*60
-    duration = 30 * 60;
+    duration = 30 * 60
 else
-    duration = vidObj.NumberOfFrame;
+    duration = vidObj.NumberOfFrame
 end
 video = zeros(NUM_HEIGHT, NUM_WIDTH, 3, duration,'single');
 for i = 1 : duration
