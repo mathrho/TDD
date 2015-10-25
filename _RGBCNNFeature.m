@@ -1,19 +1,32 @@
 function FCNNFeature = RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, model_file, gpu_id)
 
 % Input video
-vidObj = VideoReader(vid_name);
-if vidObj.NumberOfFrame > 30*60
+%vidObj = VideoReader(vid_name);
+%if vidObj.NumberOfFrame > 30*60
+%    duration = 30 * 60
+%else
+%    duration = vidObj.NumberOfFrame
+%end
+%video = zeros(NUM_HEIGHT, NUM_WIDTH, 3, duration,'single');
+%for i = 1 : duration
+%    tmp = read(vidObj,i);
+%    video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear');
+    %video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear', 'Antialiasing', false);
+%end
+
+% Input video
+filelist =dir([vid_name,'image_*.jpg']);
+if length(filelist) > 30 *60
     duration = 30 * 60
 else
-    duration = vidObj.NumberOfFrame
+    duration = length(filelist)
 end
 video = zeros(NUM_HEIGHT, NUM_WIDTH, 3, duration,'single');
 for i = 1 : duration
-    tmp = read(vidObj,i);
+    tmp = imread(sprintf('%s_%04d.jpg',[vid_name,'image'],i));
     video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear');
     %video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear', 'Antialiasing', false);
 end
-
 
 % Initialize ConvNet
 %if caffe('is_initialized') == 0
@@ -24,7 +37,6 @@ if 1
         net = matcaffe_init();
     end
 end
-
 
 % Computing convoltuional maps
 d = load('VGG_mean');

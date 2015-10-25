@@ -34,8 +34,8 @@ gpu_id = 1;
 model_def_file = [ 'models/rgb_',layer,'_scale',num2str(scale),'.prototxt'];
 model_file = 'spatial.caffemodel';
 
-%feature_conv = RGBCNNFeature(vid_name, 1, sizes_vid(scale,1), sizes_vid(scale,2), model_def_file, model_file, gpu_id);
-feature_conv = RGBCNNFeature('v_BasketballDunk_g17_c03/', 1, sizes_vid(scale,1), sizes_vid(scale,2), model_def_file, model_file, gpu_id);
+feature_conv = RGBCNNFeature(vid_name, 1, sizes_vid(scale,1), sizes_vid(scale,2), model_def_file, model_file, gpu_id);
+%feature_conv = RGBCNNFeature('v_BasketballDunk_g17_c03/', 1, sizes_vid(scale,1), sizes_vid(scale,2), model_def_file, model_file, gpu_id);
 
 if max(info(1,:)) > size(feature_conv,4)
     ind =  info(1,:) <= size(feature_conv,4);

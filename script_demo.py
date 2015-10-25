@@ -43,8 +43,8 @@ def main(options):
 	model_def_file = 'models/rgb_'+layer+'_scale'+str(scale)+'.prototxt'
 	model_file = 'spatial.caffemodel'
 
-	#feature_conv = RGBCNNFeature(options['videofile'], 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
-	feature_conv = RGBCNNFeature('v_BasketballDunk_g17_c03/', 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
+	feature_conv = RGBCNNFeature(options['videofile'], 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
+	#feature_conv = RGBCNNFeature('v_BasketballDunk_g17_c03/', 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
 	
 	if np.amax(info[0,:]) > feature_conv.shape[3]:
 		ind = np.where(info[0,:] <= feature_conv.shape[3])[0]
