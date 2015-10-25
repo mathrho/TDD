@@ -25,6 +25,7 @@ if 1
     end
 end
 
+
 % Computing convoltuional maps
 d = load('VGG_mean');
 IMAGE_MEAN = d.image_mean;
