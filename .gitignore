@@ -1,8 +1,8 @@
 #
 spatial.caffemodel
 temporal.caffemodel
-*.mat
-*.mat
+#*.mat
+#*.mat
 *.pyc
 tmp/
 test/
