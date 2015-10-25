@@ -54,7 +54,7 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
 
         frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
         # scipy.misc.imread RGB -> BGR
-        frame = frame[:,:,(2,1,0)]
+        #frame = frame[:,:,(2,1,0)]
         frame = frame - IMAGE_MEAN
         frame = np.transpose(frame, (2,0,1))
         video[i,:,:,:] = frame
