@@ -37,6 +37,7 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
         duration = 30 * 60
     else:
         duration = len(filelist)
+    print duration
 
     # get iamge mean map
     d = scipy.io.loadmat('VGG_mean.mat')

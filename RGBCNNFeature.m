@@ -17,9 +17,9 @@ function FCNNFeature = RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, m
 % Input video
 filelist =dir([vid_name,'image_*.jpg']);
 if length(filelist) > 30 *60
-    duration = 30 * 60;
+    duration = 30 * 60
 else
-    duration = length(filelist);
+    duration = length(filelist)
 end
 video = zeros(NUM_HEIGHT, NUM_WIDTH, 3, duration,'single');
 for i = 1 : duration
