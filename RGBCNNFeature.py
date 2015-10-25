@@ -18,7 +18,7 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
     if NUM_HEIGHT != H:
         raise Exception, 'HEIGHT is not euqual to pre-trained network config!'
     if NUM_WIDTH != W:
-        raise Exception, 'WIDTH is not euqual to pre-trained network config'
+        raise Exception, 'WIDTH is not euqual to pre-trained network config!'
 
     # Input video
     vidCap = cv2.VideoCapture(vid_name)

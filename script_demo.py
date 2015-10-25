@@ -25,8 +25,8 @@ def main(options):
 	# TVL1 flow extraction
 	print 'Extract TVL1 optical flow field...'
 	#mkdir test/
-	#system(['./denseFlow -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3']);
-	#system(['./denseFlow_gpu -d 1 -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3']);
+	#system(['./denseFlow -f ',vid_name,' -x test/flow_x -y test/flow_y -i test/image -b 20 -t 1 -d 3']);
+	#system(['./denseFlow_gpu -d 1 -f ',vid_name,' -x test/flow_x -y test/flow_y -i test/image -b 20 -t 1 -d 3']);
 
 	# Import improved trajectories
 	IDT = IDT_feature.read_IDTF_file('test.bin')
@@ -70,7 +70,8 @@ def main(options):
 	model_def_file = 'models/flow_'+layer+'_scale'+str(scale)+'.prototxt'
 	model_file = 'temporal.caffemodel'
 
-	feature_conv = FlowCNNFeature('test/', 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
+	#feature_conv = FlowCNNFeature('test/', 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
+	feature_conv = FlowCNNFeature('v_BasketballDunk_g17_c03/', 1, sizes_vid[scale-1,0], sizes_vid[scale-1,1], model_def_file, model_file, gpu_id)
 
 	if np.amax(info[0,:]) > feature_conv.shape[3]:
 		ind = np.where(info[0,:] <= feature_conv.shape[3])[0]

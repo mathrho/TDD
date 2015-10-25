@@ -1,17 +1,20 @@
 % a demo code for TDD extraction
 addpath('/home/zhenyang/local/softs/caffe/matlab')
 
-vid_name = 'test.avi';
+%vid_name = 'test.avi';
+vid_name = 'v_BasketballDunk_g17_c03.avi';
 
 % idt extraction
 display('Extract improved trajectories...');
-%system(['./DenseTrackStab -f ',vid_name,' -o ',vid_name(1:end-4),'.bin']);
+system(['./DenseTrackStab -f ',vid_name,' -o ',vid_name(1:end-4),'.bin']);
 
 % TVL1 flow extraction
 display('Extract TVL1 optical flow field...');
 %mkdir test/
-%system(['./denseFlow -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3']);
-%system(['./denseFlow_gpu -d 1 -f ',vid_name,' -x test/flow_x -y test/flow_y -b 20 -t 1 -d 3']);
+mkdir v_BasketballDunk_g17_c03/
+system(['./denseFlow -f ',vid_name,' -x v_BasketballDunk_g17_c03/flow_x -y v_BasketballDunk_g17_c03/flow_y -i v_BasketballDunk_g17_c03/image -b 20 -t 1 -d 3']);
+%system(['./denseFlow -f ',vid_name,' -x test/flow_x -y test/flow_y -i test/image -b 20 -t 1 -d 3']);
+%system(['./denseFlow_gpu -d 1 -f ',vid_name,' -x test/flow_x -y test/flow_y -i test/image -b 20 -t 1 -d 3']);
 
 % Import improved trajectories
 IDT = import_idt('test.bin',15);
@@ -57,7 +60,8 @@ model_file = 'temporal.caffemodel';
 
 caffe.reset_all(); %caffe('reset');
 
-feature_conv = FlowCNNFeature('test/', 1, sizes_vid(scale,1), sizes_vid(scale,2),model_def_file, model_file, gpu_id);
+%feature_conv = FlowCNNFeature('test/', 1, sizes_vid(scale,1), sizes_vid(scale,2),model_def_file, model_file, gpu_id);
+feature_conv = FlowCNNFeature('v_BasketballDunk_g17_c03/', 1, sizes_vid(scale,1), sizes_vid(scale,2),model_def_file, model_file, gpu_id);
 
 if max(info(1,:)) > size(feature_conv,4)
     ind =  info(1,:) <= size(feature_conv,4);
