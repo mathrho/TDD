@@ -10,8 +10,8 @@ end
 video = zeros(NUM_HEIGHT, NUM_WIDTH, 3, duration,'single');
 for i = 1 : duration
     tmp = read(vidObj,i);
-    video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear');
-    %video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear', 'Antialiasing', false);
+    %video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear');
+    video(:,:,:,i) = imresize(tmp, [NUM_HEIGHT, NUM_WIDTH], 'bilinear', 'Antialiasing', false);
 end
 
 % Initialize ConvNet
@@ -27,8 +27,8 @@ end
 % Computing convoltuional maps
 d = load('VGG_mean');
 IMAGE_MEAN = d.image_mean;
-IMAGE_MEAN = imresize(IMAGE_MEAN,[NUM_HEIGHT,NUM_WIDTH]);
-%IMAGE_MEAN = imresize(IMAGE_MEAN,[NUM_HEIGHT,NUM_WIDTH],'Antialiasing',false);
+%IMAGE_MEAN = imresize(IMAGE_MEAN,[NUM_HEIGHT,NUM_WIDTH]);
+IMAGE_MEAN = imresize(IMAGE_MEAN,[NUM_HEIGHT,NUM_WIDTH],'AntiAliasing',false);
 video = video(:,:,[3,2,1],:);
 video = bsxfun(@minus,video,IMAGE_MEAN);
 video = permute(video,[2,1,3,4]);
