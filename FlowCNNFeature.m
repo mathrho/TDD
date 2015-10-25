@@ -31,7 +31,6 @@ if 1
 	end
 end
 
-
 % Computing convolutional maps
 d  = load('flow_mean');
 FLOW_MEAN = d.image_mean;

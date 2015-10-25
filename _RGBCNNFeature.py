@@ -1,18 +1,14 @@
 import sys
 import os
-import glob
 
 import numpy as np
-from scipy.misc import imread, imresize
+from scipy.misc import imresize
 import scipy.io
 import cv2
 
 from caffeCNN import caffe_init, caffe_predict
 
-def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, model_file, gpu_id):
-
-    # 2L channels
-    L = 10
+def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, model_file, gpu_id):
 
     # Initialize caffe net
     net = caffe_init(use_gpu,model_def_file,model_file,gpu_id)
@@ -25,47 +21,52 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
         raise Exception, 'WIDTH is not euqual to pre-trained network config!'
 
     # Input video
-    filelist = glob.glob(vid_name+'*_x*.jpg')
-    if len(filelist) > 30*60:
+    vidCap = cv2.VideoCapture(vid_name)
+    if not vidCap.isOpened():  # check if we succeeded
+        print 'Could not initialize capturing..%s' % (vid_name, )
+        return
+
+    numFrame = int(vidCap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
+    if numFrame > 30*60:
         duration = 30 * 60
     else:
-        duration = len(filelist)
-
+        duration = numFrame
+    print duration
     # get iamge mean map
-    d = scipy.io.loadmat('flow_mean.mat')
+    d = scipy.io.loadmat('VGG_mean.mat')
     IMAGE_MEAN = d['image_mean']
     # scipy.misc.imresize only works with uint8
     # IMAGE_MEAN = imresize(IMAGE_MEAN, (NUM_HEIGHT, NUM_WIDTH), 'bicubic')
     IMAGE_MEAN = cv2.resize(IMAGE_MEAN, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_CUBIC)
 
-    video = np.zeros((duration, L*2, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
+    video = np.zeros((duration, 3, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
     for i in range(0, duration):
-        flow_x = imread( '%s_%04d.jpg' % (vid_name+'flow_x', i+1) )
-        flow_y = imread( '%s_%04d.jpg' % (vid_name+'flow_y', i+1) )
+        flag, frame = vidCap.read()
+        if flag:
+            # The frame is ready and already captured
+            # if len(frame.shape) == 2:
+            #    frame = np.tile(frame[:,:,np.newaxis], (1,1,3))
 
-        # RGB -> BGR, not need here
-        # resize scipy.misc.imresize only works with uint8
-        flow_x = cv2.resize(flow_x, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
-        flow_y = cv2.resize(flow_y, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
-        # mean subtraction, since IMAGE_MEAN size(NUM_HEIGHT, NUM_WIDTH, L*2)
-        # flow_x = flow_x - IMAGE_MEAN
-        # flow_y = flow_y - IMAGE_MEAN
-        video[i,0,:,:] = flow_x
-        video[i,1,:,:] = flow_y
-
-    for i in range(0, L-1):
-        tmp = np.concatenate((video[1:duration-1,i*2:(i+1)*2,:,:],video[(-1,-1),i*2:(i+1)*2,:,:]), axis=0)
-        video[:,(i+1)*2:(i+2)*2,:,:] = tmp
-
-    # mean subtraction
-    IMAGE_MEAN = np.transpose(IMAGE_MEAN, (2,0,1))
-    video = np.subtract(video, IMAGE_MEAN[np.newaxis,:,:,:]) # np.tile(IMAGE_MEAN[np.newaxis,:,:,:], (duration,1,1,1))
+            # OpenCV BGR -> RGB ?? (caffe uses BGR)
+            # frame = frame[:,:,(2,1,0)]
+            # resize scipy.misc.imresize only works with uint8
+            # frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
+            frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
+            # mean subtraction
+            frame = frame - IMAGE_MEAN
+            # get channel in correct dimension (H,W,C) -> (C,H,W)
+            frame = np.transpose(frame, (2,0,1))
+            #
+            video[i,:,:,:] = frame
+        else:
+            # The next frame is not ready, so we try to read it again
+            print 'frame is not ready'
 
     # Computing convoltuional maps
     # Keep in mind that width is the fastest dimension and channels are BGR (in Matlab)
     # however, Matlab (W,H,C,N) -> Python (N,C,H,W)
     batch_size = N # batch_size = 40
-    batch_images = np.zeros((batch_size, L*2, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
+    batch_images = np.zeros((batch_size, 3, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
 
     FCNNFeature = np.zeros((duration, d1, d2, d3), dtype=np.float32)
     for j in range(0, duration, batch_size):

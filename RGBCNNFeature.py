@@ -2,7 +2,7 @@ import sys
 import os
 
 import numpy as np
-from scipy.misc import imresize
+from scipy.misc import imread, imresize
 import scipy.io
 import cv2
 
@@ -21,17 +21,23 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
         raise Exception, 'WIDTH is not euqual to pre-trained network config!'
 
     # Input video
-    vidCap = cv2.VideoCapture(vid_name)
-    if not vidCap.isOpened():  # check if we succeeded
-        print 'Could not initialize capturing..%s' % (vid_name, )
-        return
-
-    numFrame = int(vidCap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
-    if numFrame > 30*60:
+    #vidCap = cv2.VideoCapture(vid_name)
+    #if not vidCap.isOpened():  # check if we succeeded
+    #    print 'Could not initialize capturing..%s' % (vid_name, )
+    #    return
+    #numFrame = int(vidCap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT))
+    #if numFrame > 30*60:
+    #    duration = 30 * 60
+    #else:
+    #    duration = numFrame
+    
+    # Input video
+    filelist = glob.glob(vid_name+'image_*.jpg')
+    if len(filelist) > 30*60:
         duration = 30 * 60
     else:
-        duration = numFrame
-    print duration
+        duration = len(filelist)
+
     # get iamge mean map
     d = scipy.io.loadmat('VGG_mean.mat')
     IMAGE_MEAN = d['image_mean']
@@ -41,8 +47,18 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
 
     video = np.zeros((duration, 3, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
     for i in range(0, duration):
-        flag, frame = vidCap.read()
-        if flag:
+
+        frame = imread( '%s_%04d.jpg' % (vid_name+'image_', i+1) )
+
+        frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
+        # scipy.misc.imread RGB -> BGR
+        frame = frame[:,:,(2,1,0)]
+        frame = frame - IMAGE_MEAN
+        frame = np.transpose(frame, (2,0,1))
+        video[i,:,:,:] = frame
+
+#        flag, frame = vidCap.read()
+#        if flag:
             # The frame is ready and already captured
             # if len(frame.shape) == 2:
             #    frame = np.tile(frame[:,:,np.newaxis], (1,1,3))
@@ -51,16 +67,16 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
             # frame = frame[:,:,(2,1,0)]
             # resize scipy.misc.imresize only works with uint8
             # frame = imresize(frame, (NUM_HEIGHT, NUM_WIDTH), 'bilinear')
-            frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
+#            frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
             # mean subtraction
-            frame = frame - IMAGE_MEAN
+#            frame = frame - IMAGE_MEAN
             # get channel in correct dimension (H,W,C) -> (C,H,W)
-            frame = np.transpose(frame, (2,0,1))
+#            frame = np.transpose(frame, (2,0,1))
             #
-            video[i,:,:,:] = frame
-        else:
+#            video[i,:,:,:] = frame
+#        else:
             # The next frame is not ready, so we try to read it again
-            print 'frame is not ready'
+#            print 'frame is not ready'
 
     # Computing convoltuional maps
     # Keep in mind that width is the fastest dimension and channels are BGR (in Matlab)
