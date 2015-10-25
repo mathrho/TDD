@@ -53,9 +53,9 @@ def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mode
         frame = imread( '%s_%04d.jpg' % (vid_name+'image', i+1) )
 
         frame = cv2.resize(frame, (NUM_WIDTH, NUM_HEIGHT), interpolation=cv2.INTER_LINEAR)
-        # scipy.misc.imread RGB -> BGR
-        #frame = frame[:,:,(2,1,0)]
-        frame = frame - IMAGE_MEAN
+        # scipy.misc.imread RGB -> BGR (caffe uses BGR)
+        frame = frame[:,:,(2,1,0)]
+        frame = frame - IMAGE_MEAN[:,:,(2,1,0)]
         frame = np.transpose(frame, (2,0,1))
         video[i,:,:,:] = frame
 
