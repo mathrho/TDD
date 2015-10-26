@@ -53,7 +53,7 @@ def get_tdd_flow(filenames, data_dir, use_gpu, layer, scale, gpu_id, startvid, t
         info = IDT.info
         traj = IDT.traj
 
-        if not info:
+        if not info.size:
             print 'IDT feature is empty...'
             continue
 
@@ -107,7 +107,7 @@ def get_tdd_rgb(filenames, data_dir, use_gpu, layer, scale, gpu_id, startvid, to
         info = IDT.info
         traj = IDT.traj
 
-        if not info:
+        if not info.size:
             print 'IDT feature is empty...'
             continue
 

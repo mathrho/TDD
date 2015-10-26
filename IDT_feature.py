@@ -40,13 +40,13 @@ class IDTFeature(object):
 
         else:
 
-            self.info = []
-            self.traj = []
-            self.traj_shape = []
-            self.hog = []
-            self.hof = []
-            self.mbhx = []
-            self.mbhy = []
+            self.info = np.array([])
+            self.traj = np.array([])
+            self.traj_shape = np.array([])
+            self.hog = np.array([])
+            self.hof = np.array([])
+            self.mbhx = np.array([])
+            self.mbhy = np.array([])
 
 
 # Parses a video's IDTF (binary) file and returns IDTF feature
