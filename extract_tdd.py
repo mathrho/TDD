@@ -50,9 +50,12 @@ def get_tdd_flow(filenames, data_dir, use_gpu, layer, scale, gpu_id, startvid, t
 
     	# Import improved trajectories
     	IDT = IDT_feature.read_IDTF_file(iDTF_file)
-    	info = IDT.info
-    	traj = IDT.traj
-
+        if IDT is None:
+            print 'IDT feature is empty...'
+            continue
+        info = IDT.info
+        traj = IDT.traj
+        
     	print 'Extract temporal TDD...'
 
     	feature = FlowCNNFeature(flow_file, net, sizes_vid[scale-1,0], sizes_vid[scale-1,1])
@@ -100,6 +103,9 @@ def get_tdd_rgb(filenames, data_dir, use_gpu, layer, scale, gpu_id, startvid, to
 
         # Import improved trajectories
         IDT = IDT_feature.read_IDTF_file(iDTF_file)
+        if IDT is None:
+            print 'iDT feature is empty...'
+            continue
         info = IDT.info
         traj = IDT.traj
 
