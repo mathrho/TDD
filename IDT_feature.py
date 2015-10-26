@@ -42,7 +42,7 @@ class IDTFeature(object):
 # Parses a video's IDTF (binary) file and returns IDTF feature
 def read_IDTF_file(vid_feature):
 
-    feature = []
+    feature = None
     data = np.fromfile(vid_feature, dtype=np.float32)
     feature = IDTFeature(data)
 
