@@ -7,15 +7,13 @@ from scipy.misc import imread, imresize
 import scipy.io
 import cv2
 
-from caffeCNN import caffe_init, caffe_predict
+from caffeCNN import caffe_predict
 
-def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, model_file, gpu_id):
+def FlowCNNFeature(vid_name, net, NUM_HEIGHT, NUM_WIDTH):
 
     # 2L channels
     L = 10
-
-    # Initialize caffe net
-    net = caffe_init(use_gpu,model_def_file,model_file,gpu_id)
+    # get net data configs
     N, C, H, W = net.blobs[net.inputs[0]].data.shape
     N, d1, d2, d3 = net.blobs[net.outputs[0]].data.shape
 
@@ -40,8 +38,8 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
 
     video = np.zeros((duration, L*2, NUM_HEIGHT, NUM_WIDTH), dtype=np.float32)
     for i in range(0, duration):
-        flow_x = imread( '%s_%04d.jpg' % (vid_name+'flow_x', i+1) )
-        flow_y = imread( '%s_%04d.jpg' % (vid_name+'flow_y', i+1) )
+        flow_x = imread( '%s_%04d.jpg' % (vid_name+'/flow_x', i+1) )
+        flow_y = imread( '%s_%04d.jpg' % (vid_name+'/flow_y', i+1) )
 
         # RGB -> BGR, not need here
         # resize scipy.misc.imresize only works with uint8

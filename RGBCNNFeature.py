@@ -6,12 +6,11 @@ from scipy.misc import imresize
 import scipy.io
 import cv2
 
-from caffeCNN import caffe_init, caffe_predict
+from caffeCNN import caffe_predict
 
-def RGBCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, model_file, gpu_id):
+def RGBCNNFeature(vid_name, net, NUM_HEIGHT, NUM_WIDTH):
 
-    # Initialize caffe net
-    net = caffe_init(use_gpu,model_def_file,model_file,gpu_id)
+    # get net data configs
     N, C, H, W = net.blobs[net.inputs[0]].data.shape
     N, d1, d2, d3 = net.blobs[net.outputs[0]].data.shape
 

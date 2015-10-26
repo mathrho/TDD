@@ -34,7 +34,7 @@ if strcmp(tag,'flow')
                 if  ~isempty(info)
                     tic;
                     filename = [path_flow,foldername{i},'/',filelist(j).name(1:end-4),'/'];
-                    feature = FlowCNNFeature(filename, 1, sizes_vid(scale,1), sizes_vid(scale,2),model_def_file, model_file, gpu_id);
+                    feature = FlowCNNFeature(filename, 1, sizes_vid(scale,1), sizes_vid(scale,2), model_def_file, model_file, gpu_id);
                     sizes = [8,8; 11.4286,11.4286; 16,16; 22.8571,24;32,34.2587];
                     if max(info(1,:)) > size(feature,4)
                         max(info(1,:))
