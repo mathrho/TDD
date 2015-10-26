@@ -25,7 +25,7 @@ def FlowCNNFeature(vid_name, use_gpu, NUM_HEIGHT, NUM_WIDTH, model_def_file, mod
         raise Exception, 'WIDTH is not euqual to pre-trained network config!'
 
     # Input video
-    filelist = glob.glob(vid_name+'*_x*.jpg')
+    filelist = glob.glob(vid_name+'/*_x*.jpg')
     if len(filelist) > 30*60:
         duration = 30 * 60
     else:

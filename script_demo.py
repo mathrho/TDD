@@ -20,13 +20,13 @@ def main(options):
 
 	# iDT extraction
 	print 'Extract improved trajectories...'
-	#system(['./DenseTrackStab -f ',vid_name,' -o ',vid_name(1:end-4),'.bin']);
+	#system(['./DenseTrackStab -f ',vid_name,' -o ',vid_name(1:end-4),'.bin'])
 
 	# TVL1 flow extraction
 	print 'Extract TVL1 optical flow field...'
 	#mkdir test/
-	#system(['./denseFlow -f ',vid_name,' -x test/flow_x -y test/flow_y -i test/image -b 20 -t 1 -d 3']);
-	#system(['./denseFlow_gpu -d 1 -f ',vid_name,' -x test/flow_x -y test/flow_y -i test/image -b 20 -t 1 -d 3']);
+	#system(['./denseFlow -f ',vid_name,' -x test/flow_x -y test/flow_y -i test/image -b 20 -t 1 -d 3'])
+	#system(['./denseFlow_gpu -d 1 -f ',vid_name,' -x test/flow_x -y test/flow_y -i test/image -b 20 -t 1 -d 3'])
 
 	# Import improved trajectories
 	IDT = IDT_feature.read_IDTF_file('test.bin')
@@ -51,7 +51,7 @@ def main(options):
 		info = info[:,ind]
 		traj = traj[:,ind]
 
-	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv);
+	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv)
 
 	tdd_feature_spatial_1 = TDD(info, traj, feature_conv_normalize_1, sizes[scale-1,0], sizes[scale-1,1], 1)
 	tdd_feature_spatial_2 = TDD(info, traj, feature_conv_normalize_2, sizes[scale-1,0], sizes[scale-1,1], 1)
@@ -79,7 +79,7 @@ def main(options):
 		info = info[:,ind]
 		traj = traj[:,ind]
 
-	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv);
+	feature_conv_normalize_1, feature_conv_normalize_2 = FeatureMapNormalization(feature_conv)
 
 	tdd_feature_temporal_1 = TDD(info, traj, feature_conv_normalize_1, sizes[scale-1,0], sizes[scale-1,1], 1)
 	tdd_feature_temporal_2 = TDD(info, traj, feature_conv_normalize_2, sizes[scale-1,0], sizes[scale-1,1], 1)
