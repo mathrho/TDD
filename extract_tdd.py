@@ -100,7 +100,7 @@ def get_tdd_rgb(filenames, data_dir, use_gpu, layer, scale, gpu_id, startvid, to
         iDTF_file = os.path.join(data_dir, 'features', 'idt', filename+'.bin')
         
         # TVL1 flow extraction
-        # flow_file = os.path.join(data_dir, 'features', 'flow', filename)
+        flow_file = os.path.join(data_dir, 'features', 'flow', filename)
 
         # Import improved trajectories
         IDT = IDT_feature.read_IDTF_file(iDTF_file)
@@ -113,7 +113,8 @@ def get_tdd_rgb(filenames, data_dir, use_gpu, layer, scale, gpu_id, startvid, to
 
         print 'Extract spatial TDD...'
 
-        feature = RGBCNNFeature(videofile, net, sizes_vid[scale-1,0], sizes_vid[scale-1,1])
+        # feature = _RGBCNNFeature(videofile, net, sizes_vid[scale-1,0], sizes_vid[scale-1,1])
+        feature = RGBCNNFeature(flow_file, net, sizes_vid[scale-1,0], sizes_vid[scale-1,1])
 
         if np.amax(info[0,:]) > feature.shape[3]:
             ind = np.where(info[0,:] <= feature.shape[3])[0]
