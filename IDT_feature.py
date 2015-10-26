@@ -38,6 +38,16 @@ class IDTFeature(object):
             self.mbhx = data[mbhx_start:mbhy_start,:]
             self.mbhy = data[mbhy_start:mbhy_end,:]
 
+        else:
+
+            self.info = []
+            self.traj = []
+            self.traj_shape = []
+            self.hog = []
+            self.hof = []
+            self.mbhx = []
+            self.mbhy = []
+
 
 # Parses a video's IDTF (binary) file and returns IDTF feature
 def read_IDTF_file(vid_feature):
