@@ -45,10 +45,11 @@ if __name__ == "__main__":
     for i in range(0, Nf):
 
         filename = filenames[i]
+        filename_ = os.path.splitext(filename)[0]
         print 'Processing (%d/%d): %s' % (i+1,Nf,filename, )
 
         inputfile = os.path.join(base_dir, 'videos', filename)
-        outputfile = os.path.join(base_dir, 'features', 'flow', filename)
+        outputfile = os.path.join(base_dir, 'features', 'flow', filename_)
 
         if not os.path.exists(outputfile):
             os.makedirs(outputfile)

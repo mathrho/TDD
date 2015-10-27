@@ -52,10 +52,11 @@ if __name__ == "__main__":
     for i in range(startvid, toid):
 
         filename = filenames[i]
+        filename_ = os.path.splitext(filename)[0]
         print 'Processing (%d/%d): %s' % (i+1,Nf,filename, )
 
         inputfile = os.path.join(base_dir, 'videos', filename)
-        outputfile = os.path.join(base_dir, 'features', 'idt', filename+'.bin')
+        outputfile = os.path.join(base_dir, 'features', 'idt', filename_+'.bin')
 
         if not os.path.exists(outputfile):
             getVideoIDTFeatures(inputfile,outputfile)
