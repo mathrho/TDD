@@ -23,8 +23,8 @@ class IDTFeature(object):
             data = np.reshape(data, (ALL_DIM, -1), order='F')
 
             traj_start = 10
-            traj_shape_start = traj_start + TRAJ_SHAPE_DIM
-            hog_start = traj_shape_start + TRAJ_DIM
+            traj_shape_start = traj_start + TRAJ_DIM
+            hog_start = traj_shape_start + TRAJ_SHAPE_DIM
             hof_start = hog_start + HOG_DIM
             mbhx_start = hof_start + HOF_DIM
             mbhy_start = mbhx_start + MBHX_DIM
