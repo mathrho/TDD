@@ -1,5 +1,5 @@
 import numpy as np
-import sys, os
+import sys, os, random
 import scipy.io
 from yael import ynumpy
 from tempfile import TemporaryFile
