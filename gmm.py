@@ -113,8 +113,8 @@ def sampleVids(vid_list, nr_pcls=1):
     return samples
 
 
-#python gmm.py -k 256 -f tdd_rgb_conv5_scale_3_norm_2 -l train1.txt -o UCF101_gmm256_pca64_tdd_rgb_conv5_scale_3_norm_2_power_0.5 -pca 0.125
-#python gmm.py -k 256 -f tdd_flow_conv5_scale_3_norm_2 -l train1.txt -o UCF101_gmm256_pca64_tdd_flow_conv5_scale_3_norm_2_power_0.5 -pca 0.125
+#python gmm.py -k 256 -f tdd_rgb_conv5_scale_3_norm_2 -l train1.txt -o UCF101_gmm256_pca64_tdd_rgb_conv5_scale_3_norm_2_power_0.5 -p 0.125
+#python gmm.py -k 256 -f tdd_flow_conv5_scale_3_norm_2 -l train1.txt -o UCF101_gmm256_pca64_tdd_flow_conv5_scale_3_norm_2_power_0.5 -p 0.125
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-k', '--gmmk', help="Number of GMM modes", type=int, required=True)
