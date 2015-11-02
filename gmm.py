@@ -132,6 +132,7 @@ if __name__ == '__main__':
 
     TDD_DIR = os.path.join(UCF101_DIR, 'features', args.feature)
     vid_list = os.path.join(UCF101_DIR, args.vidlist)
+    gmm_file = os.path.join(UCF101_DIR, 'gmm', args.gmmfile)
 
     # vid_samples = sampleVids(vid_list)
     # select all for GMM training
@@ -144,5 +145,5 @@ if __name__ == '__main__':
     for vidname in vid_samples:
         vidname_ = os.path.splitext(vidname)[0]
         videos.append(vidname_+'.mat')
-    populate_gmms(TDD_DIR,videos,args.gmmfile,args.gmmk,args.pca)
+    populate_gmms(TDD_DIR,videos,gmm_file,args.gmmk,args.pca)
 
