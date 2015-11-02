@@ -147,7 +147,7 @@ if __name__ == "__main__":
         args.dataset = '/home/zhenyang/Workspace/data/UCF101/list_UCF101.txt'
 
     print '***************************************'
-    print '********** EXTRACT FEATURES ***********'
+    print '******** EXTRACT TDD FEATURES *********'
     print '***************************************'
     print 'Dataset: %s' % (args.dataset, )
 
