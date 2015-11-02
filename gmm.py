@@ -69,7 +69,7 @@ def gmm_model(sample, k_gmm, PCA=0.5):
     mean = sample.mean(axis = 0) # for rows
     sample = sample - mean
     pca_transform = None
-    if PCA:
+    if PCA>0:
         cov = np.dot(sample.T, sample)
 
         # decide to keep 1/2 of the original components, so shape[1]/2
@@ -147,5 +147,5 @@ if __name__ == '__main__':
     for vidname in vid_samples:
         vidname_ = os.path.splitext(vidname)[0]
         videos.append(vidname_+'.mat')
-    populate_gmms(TDD_DIR,videos,gmm_file,args.gmmk,args.pca)
+    populate_gmms(TDD_DIR,videos,gmm_file,args.gmmk,PCA=args.pca)
 
