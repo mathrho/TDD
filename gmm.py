@@ -32,15 +32,16 @@ def populate_gmms(TDD_DIR, sample_vids, gmm_file, k_gmm, sample_size=1500000, PC
         if os.path.exists(os.path.join(TDD_DIR,vid)):
             data = scipy.io.loadmat(os.path.join(TDD_DIR,vid))
             nr_points = data['idt_cnn_feature'].shape[1]
-            sample_size = min(nr_points,nr_samples_pvid)
-            idx_sampled = random.sample(xrange(nr_points),sample_size)
+            nr_samples = min(nr_points,nr_samples_pvid)
+            idx_sampled = random.sample(xrange(nr_points),nr_samples)
             idx_sampled.sort()
             points_sampled = data['idt_cnn_feature'][:,idx_sampled]
             tdds.append(points_sampled.T)
 
     tdds = np.vstack(tdds)
     # save all sampled descriptors for learning gmm
-    bm_file = os.path.join(os.path.dirname(gmm_file), 'bm_TDD_descriptors_%d_%s' % (sample_size,gmm_file))
+    feature = os.path.basename(TDD_DIR)
+    bm_file = os.path.join(os.path.dirname(gmm_file), 'bm_descriptors_%d_%s' % (sample_size,feature))
     np.savez(bm_file, tdds=tdds)
 
     # why sqrt? just like root sift! power: 0.5
