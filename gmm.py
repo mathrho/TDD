@@ -134,7 +134,7 @@ if __name__ == '__main__':
 
     TDD_DIR = os.path.join(UCF101_DIR, 'features', args.feature)
     vid_list = os.path.join(UCF101_DIR, args.vidlist)
-    gmm_file = os.path.join(UCF101_DIR, 'gmm', args.gmmfile)
+    gmm_file = os.path.join(UCF101_DIR, 'features', 'gmm', args.gmmfile)
 
     # vid_samples = sampleVids(vid_list)
     # select all for GMM training
