@@ -70,7 +70,7 @@ def make_FV_matrix(videos, features, labels):
 
     return (X,Y)
 
-
+# python classify_experiment.py -f fv_tdd_flow_conv5_scale_3_norm_2,fv_tdd_flow_conv5_scale_3_norm_3
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='FisherExtractior')
     parser.add_argument('-f', '--features', dest='features', help='Specify features to use for classification.', type=str)
