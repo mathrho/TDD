@@ -38,7 +38,7 @@ def processVideo(vid,TDD_DIR,FV_DIR,gmm_list):
 # python extract_fv.py -d /home/zhenyang/Workspace/data/UCF101/list_UCF101.txt -m rgb -l conv5 -c 3 -n 2 -s 1 -t 13320
 # python extract_fv.py -d /home/zhenyang/Workspace/data/UCF101/list_UCF101.txt -m flow -l conv5 -c 3 -n 2 -s 1 -t 13320
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='FisherExtractior')    
+    parser = argparse.ArgumentParser(description='FisherExtractior')
     parser.add_argument('-d', '--dataset', dest='dataset', help='Specify dataset to process.', type=str, required=False)
     parser.add_argument('-s', '--startvid', dest='startvid', help='Specify video id start to process.', type=int, required=False)
     parser.add_argument('-t', '--tovid', dest='tovid', help='Specify video id until to process.', type=int, required=False)

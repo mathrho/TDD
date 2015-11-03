@@ -131,7 +131,7 @@ def get_tdd_rgb(filenames, data_dir, use_gpu, layer, scale, gpu_id, startvid, to
 # python extract_tdd.py -d /home/zhenyang/Workspace/data/UCF101/list_UCF101.txt -m rgb -l conv5 -c 3 -g 1 -s 1 -t 13320
 # python extract_tdd.py -d /home/zhenyang/Workspace/data/UCF101/list_UCF101.txt -m flow -l conv5 -c 3 -g 2 -s 1 -t 13320
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='FeatureExtractior')    
+    parser = argparse.ArgumentParser(description='FeatureExtractior')
     parser.add_argument('-d', '--dataset', dest='dataset', help='Specify dataset to process.', type=str, required=False)
     parser.add_argument('-s', '--startvid', dest='startvid', help='Specify video id start to process.', type=int, required=False)
     parser.add_argument('-t', '--tovid', dest='tovid', help='Specify video id until to process.', type=int, required=False)
