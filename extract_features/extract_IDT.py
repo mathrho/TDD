@@ -31,7 +31,7 @@ if __name__ == "__main__":
         args.dataset = '/home/zhenyang/Workspace/data/UCF101/list_UCF101.txt'
 
     print '***************************************'
-    print '******** EXTRACT FEATURES **********'
+    print '********** EXTRACT FEATURES ***********'
     print '***************************************'
     print 'Dataset: %s' % (args.dataset, )
 
@@ -44,12 +44,12 @@ if __name__ == "__main__":
 
     Nf = len(filenames)
     startvid = 0
-    toid = Nf
+    tovid = Nf
     if args.startvid is not None and args.tovid is not None:
         startvid = max([args.startvid-1, startvid])
-        toid = min([args.tovid, toid])
+        tovid = min([args.tovid, tovid])
 
-    for i in range(startvid, toid):
+    for i in range(startvid, tovid):
 
         filename = filenames[i]
         filename_ = os.path.splitext(filename)[0]

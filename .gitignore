@@ -1,4 +1,5 @@
 #
+.DS_Store/
 spatial.caffemodel
 temporal.caffemodel
 #*.mat
