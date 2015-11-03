@@ -80,7 +80,7 @@ if __name__ == '__main__':
     #FV_DIR = '/home/zhenyang/Workspace/data/UCF101/features/fv'
     features = args.features.split(',')
     all_features = '_'.join(features)
-    FV_DIRs = [os.path.join(UCF101_DIR, feature) for feature in features]
+    FV_DIRs = [os.path.join(UCF101_DIR, 'features', feature) for feature in features]
 
     f = open(train_list, 'r')
     videos = f.readlines()
