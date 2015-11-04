@@ -46,7 +46,7 @@ def get_tdd_flow(filenames, data_dir, use_gpu, layer, scale, gpu_id, startvid, t
     	iDTF_file = os.path.join(data_dir, 'features', 'idt', filename_+'.bin')
     	
     	# TVL1 flow extraction
-    	flow_file = os.path.join(data_dir, 'features', 'flow', filename_)
+    	flow_file = os.path.join(data_dir, 'features', 'flow_farn', filename_)
 
     	# Import improved trajectories
     	IDT = IDT_feature.read_IDTF_file(iDTF_file)
@@ -100,7 +100,7 @@ def get_tdd_rgb(filenames, data_dir, use_gpu, layer, scale, gpu_id, startvid, to
         iDTF_file = os.path.join(data_dir, 'features', 'idt', filename_+'.bin')
         
         # TVL1 flow extraction
-        flow_file = os.path.join(data_dir, 'features', 'flow', filename_)
+        flow_file = os.path.join(data_dir, 'features', 'flow_farn', filename_)
 
         # Import improved trajectories
         IDT = IDT_feature.read_IDTF_file(iDTF_file)
